@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func Shellout(command string) (error, string, string) {
+func ShellOut(command string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -19,14 +19,24 @@ func Shellout(command string) (error, string, string) {
 	return err, stdout.String(), stderr.String()
 }
 
+func ShellCmd(command string) {
+	err, out, errout = ShellOut(command)
+
+	if err != nil {
+		log.Printf("error: %v\n", err)
+		fmt.Println(errout)
+	}
+	
+	fmt.Println(out)
+}
 
 func SHCore(cmd string, winCmd string) {
-	err, out, errout := Shellout("")
+	err, out, errout := ShellOut("")
 	
 	if runtime.GOOS == "windows" {
-		err, out, errout = Shellout(winCmd)
+		err, out, errout = ShellOut(winCmd)
 	} else {
-		err, out, errout = Shellout(cmd)
+		err, out, errout = ShellOut(cmd)
 	}
 	
 	if err != nil {
