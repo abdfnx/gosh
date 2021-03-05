@@ -20,7 +20,7 @@ func ShellOut(command string) (error, string, string) {
 }
 
 func ShellCmd(command string) {
-	err, out, errout = ShellOut(command)
+	err, out, errout := ShellOut(command)
 
 	if err != nil {
 		log.Printf("error: %v\n", err)
