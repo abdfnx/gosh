@@ -30,6 +30,28 @@ func ShellCmd(command string) {
 	fmt.Println(out)
 }
 
+func PWSLOut(command string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd := exec.Command("powershell.exe", command)
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	return err, stdout.String(), stderr.String()
+}
+
+func PWSLCmd(command string) {
+	err, out, errout := PWSLOut(command)
+
+	if err != nil {
+		log.Printf("error: %v\n", err)
+		fmt.Println(errout)
+	}
+	
+	fmt.Println(out)
+}
+
 func SHCore(cmd string, winCmd string) {
 	err, out, errout := ShellOut("")
 	
