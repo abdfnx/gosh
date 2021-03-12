@@ -24,10 +24,10 @@ func ShellCmd(command string) {
 
 	if err != nil {
 		log.Printf("error: %v\n", err)
-		fmt.Println(errout)
+		fmt.Print(errout)
 	}
 	
-	fmt.Println(out)
+	fmt.Print(out)
 }
 
 func PWSLOut(command string) (error, string, string) {
@@ -46,10 +46,10 @@ func PWSLCmd(command string) {
 
 	if err != nil {
 		log.Printf("error: %v\n", err)
-		fmt.Println(errout)
+		fmt.Print(errout)
 	}
 	
-	fmt.Println(out)
+	fmt.Print(out)
 }
 
 func SHCore(cmd string, winCmd string) {
@@ -63,8 +63,8 @@ func SHCore(cmd string, winCmd string) {
 	
 	if err != nil {
 		log.Printf("error: %v\n", err)
-		fmt.Println(errout)
+		fmt.Print(errout)
 	}
 	
-	fmt.Println(out)
+	fmt.Print(out)
 }
