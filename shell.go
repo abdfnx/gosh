@@ -68,3 +68,25 @@ func SHCore(cmd string, winCmd string) {
 	
 	fmt.Print(out)
 }
+
+func RubyOut(command string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd := exec.Command("ruby", command)
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	return err, stdout.String(), stderr.String()
+}
+
+func RubyCmd(command string) {
+	err, out, errout := RubyOut(command)
+
+	if err != nil {
+		log.Printf("error: %v\n", err)
+		fmt.Print(errout)
+	}
+
+	fmt.Print(out)
+}
