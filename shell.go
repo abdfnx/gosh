@@ -68,3 +68,24 @@ func SHCore(cmd string, winCmd string) {
 	
 	fmt.Print(out)
 }
+
+func SHCoreOut(unixCmd string, winCmd string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	if runtime.GOOS == "windows" {
+		err, out, errout = PWSLOut(winCmd)
+		cmd := exec.Command("powershell.exe", winCmd)
+		cmd.Stdout = &stdout
+		cmd.Stderr = &stderr
+		err := cmd.Run()
+		return err, stdout.String(), stderr.String()
+	} else {
+		err, out, errout = ShellOut(unixCmd)
+		cmd := exec.Command("powershell.exe", unixCmd)
+		cmd.Stdout = &stdout
+		cmd.Stderr = &stderr
+		err := cmd.Run()
+		return err, stdout.String(), stderr.String()
+	}
+}
