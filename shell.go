@@ -78,7 +78,7 @@ func SHCoreOut(unixCmd string, winCmd string) (error, string, string) {
 	if runtime.GOOS == "windows" {
 		cmd = exec.Command("powershell.exe", winCmd)
 	} else {
-		cmd = exec.Command("powershell.exe", unixCmd)
+		cmd = exec.Command("bash", "-c", unixCmd)
 	}
 
 	cmd.Stdout = &stdout
