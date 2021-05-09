@@ -56,7 +56,7 @@ func SHCore(cmd string, winCmd string) {
 	err, out, errout := ShellOut("")
 	
 	if runtime.GOOS == "windows" {
-		err, out, errout = ShellOut(winCmd)
+		err, out, errout = PWSLOut(winCmd)
 	} else {
 		err, out, errout = ShellOut(cmd)
 	}
