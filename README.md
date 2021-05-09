@@ -1,3 +1,3 @@
 # shell
 
-shell plugin 🔧
+shell package to run powershell and bash with go.
