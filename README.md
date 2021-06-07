@@ -1,6 +1,6 @@
 # Shell
 
-shell package to run powershell and bash with go.
+run powershell and bash with go.
 
 ## Powershell
 
