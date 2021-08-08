@@ -46,7 +46,7 @@ shell.ShellCmd(`
 `)
 
 // run a command with out
-err, out, errout := shell.ShellOut(`curl --silent "https://api.github.com/repos/abdfnx/secman/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
+err, out, errout := shell.ShellOut(`curl --silent "https://api.github.com/repos/scmn-dev/secman/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
