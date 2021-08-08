@@ -1,3 +1,3 @@
-module github.com/secman-team/shell
+module github.com/abdfnx/shell
 
 go 1.13
