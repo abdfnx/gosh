@@ -52,15 +52,15 @@ func PWSLCmd(command string) {
 	fmt.Print(out)
 }
 
-func SHCore(cmd string, winCmd string) {
+func Run(cmd string) {
 	err, out, errout := ShellOut("")
-	
+
 	if runtime.GOOS == "windows" {
-		err, out, errout = PWSLOut(winCmd)
+		err, out, errout = PWSLOut(cmd)
 	} else {
 		err, out, errout = ShellOut(cmd)
 	}
-	
+
 	if err != nil {
 		log.Printf("error: %v\n", err)
 		fmt.Print(errout)
@@ -69,7 +69,7 @@ func SHCore(cmd string, winCmd string) {
 	fmt.Print(out)
 }
 
-func SHCoreOut(unixCmd string, winCmd string) (error, string, string) {
+func RunOut(unixCmd string, winCmd string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
