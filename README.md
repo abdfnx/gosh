@@ -7,6 +7,7 @@ run powershell and bash with go.
 ```go
 import "github.com/abdfnx/shell"
 
+// run a command
 shell.Run("git status")
 
 // run a command with output
