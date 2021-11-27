@@ -69,7 +69,42 @@ func Run(cmd string) {
 	fmt.Print(out)
 }
 
-func RunOut(unixCmd string, winCmd string) (error, string, string) {
+func RunOut(command string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd := exec.Command("")
+
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("powershell.exe", command)
+	} else {
+		cmd = exec.Command("bash", "-c", command)
+	}
+
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	return err, stdout.String(), stderr.String()
+}
+
+func RunCmd(unixCmd string, winCmd string) {
+	err, out, errout := ShellOut("")
+
+	if runtime.GOOS == "windows" {
+		err, out, errout = PWSLOut(winCmd)
+	} else {
+		err, out, errout = ShellOut(unixCmd)
+	}
+
+	if err != nil {
+		log.Printf("error: %v\n", err)
+		fmt.Print(errout)
+	}
+	
+	fmt.Print(out)
+}
+
+func RunCmdOut(unixCmd string, winCmd string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
