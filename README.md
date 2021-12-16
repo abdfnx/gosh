@@ -1,6 +1,6 @@
 # Shell
 
-run powershell and bash with go.
+run powershell and bash easly with go.
 
 ## Run powershell and bash
 
@@ -27,17 +27,17 @@ fmt.Print(out)
 import "github.com/abdfnx/shell"
 
 // run a command
-shell.PWSLCmd(`Write-Host "secman is 🔒"`)
+shell.PowershellCommand(`Write-Host "hello from powershell"`)
 
 // run a script
-shell.PWSLCmd(`
-  $x = git config user.name
+shell.PowershellCommand(`
+  $git_username = git config user.name
   
-  Write-Host $x
+  Write-Host $git_username
 `)
 
 // run a command with output
-err, out, errout := shell.PWSLOut(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$SECMAN_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
+err, out, errout := shell.PowerShelloutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
@@ -53,10 +53,10 @@ fmt.Print(out)
 import "github.com/abdfnx/shell"
 
 // run a command
-shell.ShellCmd(`echo "secman is 🔒"`)
+shell.ShellCommand(`echo "shell or bash?"`)
 
 // run a script
-shell.ShellCmd(`
+shell.ShellCommand(`
   mood="👨‍💻"
 
   if [ $mood != "😪" ]; then
@@ -65,7 +65,7 @@ shell.ShellCmd(`
 `)
 
 // run a command with output
-err, out, errout := shell.ShellOut(`curl --silent "https://api.github.com/repos/scmn-dev/secman/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
+err, out, errout := shell.Shelloutput(`curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
