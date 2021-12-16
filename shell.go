@@ -8,19 +8,23 @@ import (
 	"os/exec"
 )
 
-func ShellOut(command string) (error, string, string) {
+// `ShellOutput` returns the output of shell command, and any errors.
+func ShellOutput(command string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
 	cmd := exec.Command("bash", "-c", command)
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
+
 	err := cmd.Run()
+
 	return err, stdout.String(), stderr.String()
 }
 
-func ShellCmd(command string) {
-	err, out, errout := ShellOut(command)
+// `ShellCommand` executes the shell command.
+func ShellCommand(command string) {
+	err, out, errout := ShellOutput(command)
 
 	if err != nil {
 		log.Printf("error: %v\n", err)
@@ -30,19 +34,23 @@ func ShellCmd(command string) {
 	fmt.Print(out)
 }
 
-func PWSLOut(command string) (error, string, string) {
+// `PowershellOutput` returns the output of powershell command, and any errors.
+func PowershellOutput(command string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
 	cmd := exec.Command("powershell.exe", command)
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
+
 	err := cmd.Run()
+
 	return err, stdout.String(), stderr.String()
 }
 
-func PWSLCmd(command string) {
-	err, out, errout := PWSLOut(command)
+// `PowershellCommand` executes the powershell command.
+func PowershellCommand(command string) {
+	err, out, errout := PowershellOutput(command)
 
 	if err != nil {
 		log.Printf("error: %v\n", err)
@@ -52,13 +60,14 @@ func PWSLCmd(command string) {
 	fmt.Print(out)
 }
 
+// `Run` executes the same command for shell and powershell
 func Run(cmd string) {
-	err, out, errout := ShellOut("")
+	err, out, errout := ShellOutput("")
 
 	if runtime.GOOS == "windows" {
-		err, out, errout = PWSLOut(cmd)
+		err, out, errout = PowershellOutput(cmd)
 	} else {
-		err, out, errout = ShellOut(cmd)
+		err, out, errout = ShellOutput(cmd)
 	}
 
 	if err != nil {
@@ -69,7 +78,8 @@ func Run(cmd string) {
 	fmt.Print(out)
 }
 
-func RunOut(command string) (error, string, string) {
+// `RunOutput` returns the output of the shared command for shell and powershell
+func RunOutput(command string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -83,17 +93,20 @@ func RunOut(command string) (error, string, string) {
 
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
+
 	err := cmd.Run()
+
 	return err, stdout.String(), stderr.String()
 }
 
-func RunCmd(unixCmd string, winCmd string) {
-	err, out, errout := ShellOut("")
+// `RunMulti` executes a command for shell and a command for powershell
+func RunMulti(unixCmd string, winCmd string) {
+	err, out, errout := ShellOutput("")
 
 	if runtime.GOOS == "windows" {
-		err, out, errout = PWSLOut(winCmd)
+		err, out, errout = PowershellOutput(winCmd)
 	} else {
-		err, out, errout = ShellOut(unixCmd)
+		err, out, errout = ShellOutput(unixCmd)
 	}
 
 	if err != nil {
@@ -104,7 +117,8 @@ func RunCmd(unixCmd string, winCmd string) {
 	fmt.Print(out)
 }
 
-func RunCmdOut(unixCmd string, winCmd string) (error, string, string) {
+// `RunMultiOutput` returns the output of the shell command and the powershell command
+func RunMultiOutput(unixCmd string, winCmd string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -118,6 +132,8 @@ func RunCmdOut(unixCmd string, winCmd string) (error, string, string) {
 
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
+
 	err := cmd.Run()
+
 	return err, stdout.String(), stderr.String()
 }
