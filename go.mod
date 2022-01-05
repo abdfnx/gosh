@@ -1,3 +1,3 @@
-module github.com/abdfnx/shell
+module github.com/abdfnx/gosh
 
-go 1.13
+go 1.17

@@ -1,17 +1,19 @@
-# Shell
+# gosh
 
-run powershell and bash easly with go.
+> Run powershell and bash commands easly in go.
 
-## Run powershell and bash
+## Examples
+
+## Run one command on both shell and powershell
 
 ```go
-import "github.com/abdfnx/shell"
+import "github.com/abdfnx/gosh"
 
 // run a command
-shell.Run("git status")
+gosh.Run("git status")
 
 // run a command with output
-err, out, errout := shell.RunOut("whoami")
+err, out, errout := gosh.RunOut("whoami")
 
 if err != nil {
   log.Printf("error: %v\n", err)
@@ -21,23 +23,45 @@ if err != nil {
 fmt.Print(out)
 ```
 
+### How `gosh.Run("COMMAND")` works ?
+
+```go
+// `Run` executes the same command for shell and powershell
+func Run(cmd string) {
+	err, out, errout := ShellOutput("")
+
+	if runtime.GOOS == "windows" {
+		err, out, errout = PowershellOutput(cmd)
+	} else {
+		err, out, errout = ShellOutput(cmd)
+	}
+
+	if err != nil {
+		log.Printf("error: %v\n", err)
+		fmt.Print(errout)
+	}
+	
+	fmt.Print(out)
+}
+```
+
 ## Powershell
 
 ```go
-import "github.com/abdfnx/shell"
+import "github.com/abdfnx/gosh"
 
 // run a command
-shell.PowershellCommand(`Write-Host "hello from powershell"`)
+gosh.PowershellCommand(`Write-Host "hello from powershell"`)
 
 // run a script
-shell.PowershellCommand(`
+gosh.PowershellCommand(`
   $git_username = git config user.name
   
   Write-Host $git_username
 `)
 
 // run a command with output
-err, out, errout := shell.PowerShelloutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
+err, out, errout := gosh.PowerShelloutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
@@ -50,13 +74,13 @@ fmt.Print(out)
 ## Bash/Shell
 
 ```go
-import "github.com/abdfnx/shell"
+import "github.com/abdfnx/gosh"
 
 // run a command
-shell.ShellCommand(`echo "shell or bash?"`)
+gosh.ShellCommand(`echo "shell or bash?"`)
 
 // run a script
-shell.ShellCommand(`
+gosh.ShellCommand(`
   mood="👨‍💻"
 
   if [ $mood != "😪" ]; then
@@ -65,7 +89,7 @@ shell.ShellCommand(`
 `)
 
 // run a command with output
-err, out, errout := shell.Shelloutput(`curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
+err, out, errout := gosh.Shelloutput(`curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
