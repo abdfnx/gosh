@@ -2,12 +2,25 @@
 
 > Run powershell and bash commands easly in go.
 
+## Install
+
+```bash
+go get -v github.com/abdfnx/gosh@v0.3.5
+```
+
 ## Examples
 
-## Run one command on both shell and powershell
+### Run one command on both shell and powershell
 
 ```go
-import "github.com/abdfnx/gosh"
+package main
+
+import (
+   "fmt"
+   "log"
+   
+   "github.com/abdfnx/gosh"
+)
 
 // run a command
 gosh.Run("git status")
@@ -45,10 +58,17 @@ func Run(cmd string) {
 }
 ```
 
-## Powershell
+### Powershell
 
 ```go
-import "github.com/abdfnx/gosh"
+package main
+
+import (
+   "fmt"
+   "log"
+   
+   "github.com/abdfnx/gosh"
+)
 
 // run a command
 gosh.PowershellCommand(`Write-Host "hello from powershell"`)
@@ -71,10 +91,17 @@ if err != nil {
 fmt.Print(out)
 ```
 
-## Bash/Shell
+### Bash/Shell
 
 ```go
-import "github.com/abdfnx/gosh"
+package main
+
+import (
+   "fmt"
+   "log"
+   
+   "github.com/abdfnx/gosh"
+)
 
 // run a command
 gosh.ShellCommand(`echo "shell or bash?"`)
