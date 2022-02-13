@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-go get -v github.com/abdfnx/gosh@v0.3.5
+go get -v github.com/abdfnx/gosh@v0.3.6
 ```
 
 ## Examples
@@ -26,7 +26,7 @@ import (
 gosh.Run("git status")
 
 // run a command with output
-err, out, errout := gosh.RunOut("whoami")
+err, out, errout := gosh.RunOutput("whoami")
 
 if err != nil {
   log.Printf("error: %v\n", err)
@@ -81,7 +81,7 @@ gosh.PowershellCommand(`
 `)
 
 // run a command with output
-err, out, errout := gosh.PowerShelloutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
+err, out, errout := gosh.PowerShellOutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
@@ -116,7 +116,7 @@ gosh.ShellCommand(`
 `)
 
 // run a command with output
-err, out, errout := gosh.Shelloutput(`curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
+err, out, errout := gosh.ShellOutput(`curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
