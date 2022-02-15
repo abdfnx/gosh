@@ -1,6 +1,6 @@
 # gosh
 
-> Run powershell and bash commands easly in go.
+> A golang library for executing bash & powershell commands easly.
 
 ## Install
 
@@ -16,17 +16,17 @@ go get -v github.com/abdfnx/gosh@v0.3.6
 package main
 
 import (
-   "fmt"
-   "log"
-   
-   "github.com/abdfnx/gosh"
+  "fmt"
+  "log"
+
+  "github.com/abdfnx/gosh"
 )
 
 // run a command
 gosh.Run("git status")
 
 // run a command with output
-err, out, errout := gosh.RunOutput("whoami")
+err, out, errout := gosh.RunOutput("echo 𝜋")
 
 if err != nil {
   log.Printf("error: %v\n", err)
@@ -53,21 +53,21 @@ func Run(cmd string) {
 		log.Printf("error: %v\n", err)
 		fmt.Print(errout)
 	}
-	
+
 	fmt.Print(out)
 }
 ```
 
-### Powershell
+### Run Powershell Command(s)
 
 ```go
 package main
 
 import (
-   "fmt"
-   "log"
-   
-   "github.com/abdfnx/gosh"
+  "fmt"
+  "log"
+
+  "github.com/abdfnx/gosh"
 )
 
 // run a command
@@ -76,7 +76,7 @@ gosh.PowershellCommand(`Write-Host "hello from powershell"`)
 // run a script
 gosh.PowershellCommand(`
   $git_username = git config user.name
-  
+
   Write-Host $git_username
 `)
 
@@ -91,16 +91,16 @@ if err != nil {
 fmt.Print(out)
 ```
 
-### Bash/Shell
+### Run Bash/Shell Command(s)
 
 ```go
 package main
 
 import (
-   "fmt"
-   "log"
-   
-   "github.com/abdfnx/gosh"
+  "fmt"
+  "log"
+
+  "github.com/abdfnx/gosh"
 )
 
 // run a command
@@ -116,7 +116,7 @@ gosh.ShellCommand(`
 `)
 
 // run a command with output
-err, out, errout := gosh.ShellOutput(`curl --silent "https://api.github.com/repos/abdfnx/resto/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'`)
+err, out, errout := gosh.ShellOutput(`curl --silent "https://get-latest.secman.dev/docker/compose"`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
