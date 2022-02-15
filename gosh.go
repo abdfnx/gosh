@@ -3,9 +3,9 @@ package gosh
 import (
 	"fmt"
 	"log"
-	"runtime"
 	"bytes"
 	"os/exec"
+	"runtime"
 )
 
 // `ShellOutput` returns the output of shell command, and any errors.
@@ -58,6 +58,21 @@ func PowershellCommand(command string) {
 	}
 	
 	fmt.Print(out)
+}
+
+// `Exec` just exectes the command
+func Exec(shell, cmd string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd := exec.Command(shell, "-c", cmd)
+
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	err := cmd.Run()
+
+	return err, stdout.String(), stderr.String()
 }
 
 // `Run` executes the same command for shell and powershell
