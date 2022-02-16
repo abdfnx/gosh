@@ -61,11 +61,11 @@ func PowershellCommand(command string) {
 }
 
 // `Exec` just exectes the command
-func Exec(shell, cmd string) (error, string, string) {
+func Exec(shell, command string) (error, string, string) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
-	cmd := exec.Command(shell, "-c", cmd)
+	cmd := exec.Command(shell, "-c", command)
 
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
