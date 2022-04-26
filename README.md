@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-go get -v github.com/abdfnx/gosh@v0.3.8
+go get -v github.com/abdfnx/gosh@v0.3.9
 ```
 
 ## Examples
