@@ -22,6 +22,20 @@ func ShellOutput(command string) (error, string, string) {
 	return err, stdout.String(), stderr.String()
 }
 
+func ShellOutputWithDir(command, dir string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd := exec.Command("bash", "-c", command)
+	cmd.Dir = dir
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	err := cmd.Run()
+
+	return err, stdout.String(), stderr.String()
+}
+
 // `ShellCommand` executes the shell command.
 func ShellCommand(command string) {
 	err, out, errout := ShellOutput(command)
@@ -40,6 +54,20 @@ func PowershellOutput(command string) (error, string, string) {
 	var stderr bytes.Buffer
 
 	cmd := exec.Command("powershell.exe", command)
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	err := cmd.Run()
+
+	return err, stdout.String(), stderr.String()
+}
+
+func PowershellOutputWithDir(command, dir string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	cmd := exec.Command("powershell.exe", command)
+	cmd.Dir = dir
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
 
