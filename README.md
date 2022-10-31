@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-go get -v github.com/abdfnx/gosh@v0.3.9
+go get -v github.com/abdfnx/gosh
 ```
 
 ## Examples
@@ -116,7 +116,7 @@ gosh.ShellCommand(`
 `)
 
 // run a command with output
-err, out, errout := gosh.ShellOutput(`curl --silent "https://get-latest.secman.dev/docker/compose"`)
+err, out, errout := gosh.ShellOutput(`curl --silent "https://get-latest.onrender.com/docker/compose"`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
