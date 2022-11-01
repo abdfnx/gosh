@@ -81,7 +81,7 @@ gosh.PowershellCommand(`
 `)
 
 // run a command with output
-err, out, errout := gosh.PowerShellOutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
+err, out, errout := gosh.PowershellOutput(`[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";$APP_PATH\bin", [System.EnvironmentVariableTarget]::User)`)
 
 if err != nil {
   log.Printf("error: %v\n", err)
